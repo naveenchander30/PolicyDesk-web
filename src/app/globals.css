@@ -89,3 +89,72 @@ input {
   background: var(--accent);
   color: white;
 }
+
+.auth-page {
+  display: grid;
+  min-height: 100vh;
+  place-items: center;
+  padding: 24px;
+}
+
+.auth-form {
+  display: grid;
+  width: min(100%, 420px);
+  gap: 16px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+  padding: 28px;
+}
+
+.auth-form h1,
+.auth-form p {
+  margin: 0;
+}
+
+.auth-form h1 {
+  font-size: 2rem;
+  line-height: 1.1;
+}
+
+.auth-form label {
+  display: grid;
+  gap: 8px;
+  color: var(--foreground);
+  font-weight: 700;
+}
+
+.auth-form input {
+  min-height: 44px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 10px 12px;
+}
+
+.auth-form button {
+  min-height: 44px;
+  border: 0;
+  border-radius: 8px;
+  background: var(--accent);
+  color: white;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.auth-form button:hover {
+  background: var(--accent-dark);
+}
+
+.field-error {
+  color: #b42318;
+  font-size: 0.9rem;
+}
+
+.auth-switch {
+  color: var(--muted);
+}
+
+.auth-switch a {
+  color: var(--accent-dark);
+  font-weight: 700;
+}

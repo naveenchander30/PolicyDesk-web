@@ -1,0 +1,38 @@
+import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import { describe, expect, it } from "vitest";
+import { AuthForm } from "./auth-form";
+
+describe("AuthForm", () => {
+  it("renders login controls", () => {
+    render(<AuthForm mode="login" />);
+
+    expect(screen.getByRole("heading", { name: "Log in" })).toBeInTheDocument();
+    expect(screen.getByLabelText("Email")).toBeInTheDocument();
+    expect(screen.getByLabelText("Password")).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Log in" })).toBeInTheDocument();
+  });
+
+  it("renders signup controls", () => {
+    render(<AuthForm mode="signup" />);
+
+    expect(
+      screen.getByRole("heading", { name: "Create account" })
+    ).toBeInTheDocument();
+    expect(screen.getByLabelText("Email")).toBeInTheDocument();
+    expect(screen.getByLabelText("Password")).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: "Create account" })
+    ).toBeInTheDocument();
+  });
+
+  it("shows validation messages when submitted empty", async () => {
+    const user = userEvent.setup();
+    render(<AuthForm mode="login" />);
+
+    await user.click(screen.getByRole("button", { name: "Log in" }));
+
+    expect(screen.getByText("Email is required.")).toBeInTheDocument();
+    expect(screen.getByText("Password is required.")).toBeInTheDocument();
+  });
+});
