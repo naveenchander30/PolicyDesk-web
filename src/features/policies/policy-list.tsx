@@ -53,6 +53,7 @@ export function PolicyList({ policies, clientId }: PolicyListProps) {
               <td>{policy.frequency || "-"}</td>
               <td>{policy.status}</td>
               <td className="actions">
+                <Link href={`/policies/${policy.id}`}>View</Link>
                 <Link href={`/policies/${policy.id}/edit`}>Edit</Link>
               </td>
             </tr>
