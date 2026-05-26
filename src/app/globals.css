@@ -158,3 +158,72 @@ input {
   color: var(--accent-dark);
   font-weight: 700;
 }
+
+.app-shell {
+  display: grid;
+  min-height: 100vh;
+  grid-template-columns: 240px 1fr;
+}
+
+.app-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  border-right: 1px solid var(--line);
+  background: var(--panel);
+  padding: 24px;
+}
+
+.app-brand {
+  color: var(--accent-dark);
+  font-size: 1.1rem;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.app-sidebar nav {
+  display: grid;
+  gap: 8px;
+}
+
+.app-sidebar nav a {
+  border-radius: 8px;
+  color: var(--foreground);
+  padding: 10px 12px;
+  text-decoration: none;
+}
+
+.app-sidebar nav a:hover {
+  background: #edf7f5;
+}
+
+.app-main {
+  padding: 32px;
+}
+
+.dashboard-header {
+  max-width: 720px;
+}
+
+.dashboard-header h1 {
+  margin: 0;
+  font-size: clamp(2rem, 5vw, 3.25rem);
+  line-height: 1.05;
+}
+
+.dashboard-header p {
+  color: var(--muted);
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+@media (max-width: 760px) {
+  .app-shell {
+    grid-template-columns: 1fr;
+  }
+
+  .app-sidebar {
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+}
