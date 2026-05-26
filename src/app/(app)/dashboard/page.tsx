@@ -1,16 +1,13 @@
-import { AppShell } from "@/components/app-shell";
+import { DashboardWidgets } from "@/features/dashboard/dashboard-widgets";
+import { getDashboardStats } from "@/features/dashboard/dashboard-queries";
 
-export default function DashboardPage() {
+export default async function DashboardPage() {
+  const stats = await getDashboardStats();
+
   return (
-    <AppShell>
-      <section className="dashboard-header">
-        <p className="eyebrow">Dashboard</p>
-        <h1>Premium follow-up workspace</h1>
-        <p>
-          Client, policy, and payment tracking will be added after this stable
-          base review.
-        </p>
-      </section>
-    </AppShell>
+    <div>
+      <h1>Dashboard</h1>
+      <DashboardWidgets stats={stats} />
+    </div>
   );
 }
