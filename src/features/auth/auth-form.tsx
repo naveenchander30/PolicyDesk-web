@@ -1,7 +1,10 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
+import { createBrowserSupabaseClient } from "@/lib/supabase/browser";
+import { getAuthErrors } from "@/lib/auth/auth";
 
 type AuthMode = "login" | "signup";
 
@@ -12,6 +15,7 @@ type AuthFormProps = {
 type ValidationErrors = {
   email?: string;
   password?: string;
+  submit?: string;
 };
 
 const copy = {
@@ -35,24 +39,55 @@ const copy = {
 
 export function AuthForm({ mode }: AuthFormProps) {
   const content = copy[mode];
+  const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState<ValidationErrors>({});
+  const [isLoading, setIsLoading] = useState(false);
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    setIsLoading(true);
+    setErrors({});
 
-    const nextErrors: ValidationErrors = {};
-
-    if (!email.trim()) {
-      nextErrors.email = "Email is required.";
+    const validationErrors = getAuthErrors(email, password);
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      setIsLoading(false);
+      return;
     }
 
-    if (!password.trim()) {
-      nextErrors.password = "Password is required.";
-    }
+    try {
+      const supabase = createBrowserSupabaseClient();
 
-    setErrors(nextErrors);
+      if (mode === "login") {
+        const { error } = await supabase.auth.signInWithPassword({
+          email: email.trim(),
+          password: password.trim()
+        });
+
+        if (error) {
+          setErrors({ submit: error.message });
+          return;
+        }
+      } else {
+        const { error } = await supabase.auth.signUp({
+          email: email.trim(),
+          password: password.trim()
+        });
+
+        if (error) {
+          setErrors({ submit: error.message });
+          return;
+        }
+      }
+
+      router.push("/dashboard");
+    } catch {
+      setErrors({ submit: "An unexpected error occurred." });
+    } finally {
+      setIsLoading(false);
+    }
   }
 
   return (
@@ -63,6 +98,8 @@ export function AuthForm({ mode }: AuthFormProps) {
         <p>{content.description}</p>
       </div>
 
+      {errors.submit && <p className="field-error">{errors.submit}</p>}
+
       <label>
         <span>Email</span>
         <input
@@ -72,6 +109,7 @@ export function AuthForm({ mode }: AuthFormProps) {
           onChange={(event) => setEmail(event.target.value)}
           type="email"
           value={email}
+          disabled={isLoading}
         />
       </label>
       {errors.email ? <p className="field-error">{errors.email}</p> : null}
@@ -84,13 +122,16 @@ export function AuthForm({ mode }: AuthFormProps) {
           onChange={(event) => setPassword(event.target.value)}
           type="password"
           value={password}
+          disabled={isLoading}
         />
       </label>
       {errors.password ? (
         <p className="field-error">{errors.password}</p>
       ) : null}
 
-      <button type="submit">{content.submit}</button>
+      <button type="submit" disabled={isLoading}>
+        {isLoading ? "Loading..." : content.submit}
+      </button>
 
       <p className="auth-switch">
         {content.alternate}{" "}

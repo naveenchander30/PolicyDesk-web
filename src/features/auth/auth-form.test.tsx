@@ -1,7 +1,20 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { AuthForm } from "./auth-form";
+
+vi.mock("next/navigation", () => ({
+  useRouter: () => ({ push: vi.fn() })
+}));
+
+vi.mock("@/lib/supabase/browser", () => ({
+  createBrowserSupabaseClient: () => ({
+    auth: {
+      signInWithPassword: vi.fn().mockResolvedValue({ data: { session: {} }, error: null }),
+      signUp: vi.fn().mockResolvedValue({ data: { user: {} }, error: null })
+    }
+  })
+}));
 
 describe("AuthForm", () => {
   it("renders login controls", () => {
