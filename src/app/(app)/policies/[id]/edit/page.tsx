@@ -3,8 +3,8 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { FormEvent } from "react";
-import { fetchPolicy, updatePolicyFromBrowser } from "@/features/policies/policy.queries";
-import { fetchInsuranceTypes } from "@/features/insurance-types/insurance-type.queries";
+import { fetchPolicyFromBrowser, updatePolicyFromBrowser } from "@/features/policies/policy.queries";
+import { fetchInsuranceTypesFromBrowser } from "@/features/insurance-types/insurance-type.queries";
 import { PolicyWithDetails } from "@/features/policies/policy.types";
 import { InsuranceType } from "@/features/insurance-types/insurance-type.types";
 
@@ -31,8 +31,8 @@ export default function EditPolicyPage({
       const { id } = await params;
       try {
         const [data, types] = await Promise.all([
-          fetchPolicy(id),
-          fetchInsuranceTypes()
+          fetchPolicyFromBrowser(id),
+          fetchInsuranceTypesFromBrowser()
         ]);
         setPolicy(data);
         setInsuranceTypeId(data.insurance_type_id);

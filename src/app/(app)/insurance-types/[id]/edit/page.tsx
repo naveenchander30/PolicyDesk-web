@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { FormEvent } from "react";
-import { fetchInsuranceType, updateInsuranceTypeFromBrowser } from "@/features/insurance-types/insurance-type.queries";
+import { fetchInsuranceTypeFromBrowser, updateInsuranceTypeFromBrowser } from "@/features/insurance-types/insurance-type.queries";
 import { InsuranceType } from "@/features/insurance-types/insurance-type.types";
 
 export default function EditInsuranceTypePage({
@@ -22,7 +22,7 @@ export default function EditInsuranceTypePage({
     async function load() {
       const { id } = await params;
       try {
-        const data = await fetchInsuranceType(id);
+        const data = await fetchInsuranceTypeFromBrowser(id);
         setType(data);
         setName(data.name);
       } catch {

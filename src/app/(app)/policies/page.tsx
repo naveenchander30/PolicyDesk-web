@@ -1,4 +1,4 @@
-import { fetchAllPolicies } from "@/features/policies/policy.queries";
+import { fetchAllPolicies } from "@/features/policies/policy.queries.server";
 import { PolicyList } from "@/features/policies/policy-list";
 
 export default async function PoliciesPage() {

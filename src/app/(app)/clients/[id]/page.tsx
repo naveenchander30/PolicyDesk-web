@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { fetchClient } from "@/features/clients/client.queries";
-import { fetchPoliciesByClient } from "@/features/policies/policy.queries";
+import { fetchClient } from "@/features/clients/client.queries.server";
+import { fetchPoliciesByClient } from "@/features/policies/policy.queries.server";
 import { PolicyList } from "@/features/policies/policy-list";
 
 export default async function ClientDetailPage({

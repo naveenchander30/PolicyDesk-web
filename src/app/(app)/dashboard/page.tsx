@@ -1,5 +1,5 @@
 import { DashboardWidgets } from "@/features/dashboard/dashboard-widgets";
-import { getDashboardStats } from "@/features/dashboard/dashboard-queries";
+import { getDashboardStats } from "@/features/dashboard/dashboard-queries.server";
 
 export default async function DashboardPage() {
   const stats = await getDashboardStats();

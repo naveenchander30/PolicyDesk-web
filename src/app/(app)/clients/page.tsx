@@ -1,5 +1,5 @@
 import { ClientList } from "@/features/clients/client-list";
-import { fetchClients } from "@/features/clients/client.queries";
+import { fetchClients } from "@/features/clients/client.queries.server";
 
 export default async function ClientsPage() {
   const clients = await fetchClients();

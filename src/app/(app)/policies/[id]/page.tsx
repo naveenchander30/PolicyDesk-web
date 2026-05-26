@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { fetchPolicy } from "@/features/policies/policy.queries";
-import { fetchPaymentsByPolicy } from "@/features/payments/payment.queries";
+import { fetchPolicy } from "@/features/policies/policy.queries.server";
+import { fetchPaymentsByPolicy } from "@/features/payments/payment.queries.server";
 import { PaymentList } from "@/features/payments/payment-list";
 
 export default async function PolicyDetailPage({

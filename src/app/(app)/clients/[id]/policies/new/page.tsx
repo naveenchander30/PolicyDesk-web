@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { FormEvent, useState, useEffect } from "react";
 import { createPolicyFromBrowser } from "@/features/policies/policy.queries";
-import { fetchInsuranceTypes } from "@/features/insurance-types/insurance-type.queries";
+import { fetchInsuranceTypesFromBrowser } from "@/features/insurance-types/insurance-type.queries";
 import { InsuranceType } from "@/features/insurance-types/insurance-type.types";
 
 export default function NewPolicyPage({
@@ -27,7 +27,7 @@ export default function NewPolicyPage({
     async function init() {
       const { id } = await params;
       setClientId(id);
-      const types = await fetchInsuranceTypes();
+      const types = await fetchInsuranceTypesFromBrowser();
       setInsuranceTypes(types);
       setLoadingTypes(false);
     }

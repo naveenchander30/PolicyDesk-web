@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { FormEvent } from "react";
-import { fetchClient, updateClientFromBrowser } from "@/features/clients/client.queries";
+import { fetchClientFromBrowser, updateClientFromBrowser } from "@/features/clients/client.queries";
 import { Client } from "@/features/clients/client.types";
 
 export default function EditClientPage({
@@ -25,7 +25,7 @@ export default function EditClientPage({
     async function load() {
       const { id } = await params;
       try {
-        const data = await fetchClient(id);
+        const data = await fetchClientFromBrowser(id);
         setClient(data);
         setName(data.name);
         setPhone(data.phone);
