@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { fetchClient } from "@/features/clients/client.queries";
+import { fetchPoliciesByClient } from "@/features/policies/policy.queries";
+import { PolicyList } from "@/features/policies/policy-list";
 
 export default async function ClientDetailPage({
   params
@@ -15,6 +17,8 @@ export default async function ClientDetailPage({
   } catch {
     notFound();
   }
+
+  const policies = await fetchPoliciesByClient(id);
 
   return (
     <div>
@@ -40,6 +44,9 @@ export default async function ClientDetailPage({
           Edit Client
         </Link>
       </div>
+
+      <h2>Policies</h2>
+      <PolicyList policies={policies} clientId={id} />
     </div>
   );
 }
