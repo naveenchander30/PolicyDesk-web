@@ -793,6 +793,174 @@ td.actions button:hover {
   color: var(--on-surface-variant);
 }
 
+.empty-icon {
+  font-size: 2.5rem;
+  margin-bottom: 12px;
+}
+
+.list-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.search-wrapper {
+  position: relative;
+  flex: 1;
+  max-width: 320px;
+}
+
+.search-input {
+  width: 100%;
+  min-height: 40px;
+  border: 1px solid var(--outline-variant);
+  border-radius: 8px;
+  padding: 8px 36px 8px 12px;
+  background: var(--surface-container-low);
+  color: var(--on-surface);
+  font-size: 0.9rem;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+.search-clear {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: var(--outline);
+  cursor: pointer;
+  font-size: 1.2rem;
+  padding: 0;
+  line-height: 1;
+}
+
+.result-count {
+  color: var(--outline);
+  font-size: 0.8rem;
+  white-space: nowrap;
+}
+
+th.sortable {
+  cursor: pointer;
+  user-select: none;
+}
+
+th.sortable:hover {
+  color: var(--primary);
+}
+
+.sort-arrow {
+  font-size: 0.7rem;
+}
+
+th[aria-sort="ascending"] .sort-arrow,
+th[aria-sort="descending"] .sort-arrow {
+  color: var(--primary);
+}
+
+.overflow-menu {
+  position: relative;
+  display: inline-block;
+}
+
+.overflow-trigger {
+  background: none;
+  border: none;
+  color: var(--outline);
+  cursor: pointer;
+  font-size: 1.2rem;
+  padding: 4px 8px;
+  border-radius: 4px;
+  letter-spacing: 2px;
+}
+
+.overflow-trigger:hover {
+  background: var(--surface-container-high);
+  color: var(--on-surface);
+}
+
+.overflow-items {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 100%;
+  background: var(--surface-container);
+  border: 1px solid var(--outline-variant);
+  border-radius: 8px;
+  padding: 4px;
+  z-index: 10;
+  min-width: 100px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+.overflow-menu:hover .overflow-items,
+.overflow-menu:focus-within .overflow-items {
+  display: flex;
+  flex-direction: column;
+}
+
+.overflow-items a,
+.overflow-items button {
+  padding: 8px 12px;
+  color: var(--on-surface);
+  text-decoration: none;
+  font-size: 0.85rem;
+  border-radius: 4px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+}
+
+.overflow-items a:hover,
+.overflow-items button:hover {
+  background: rgba(173, 198, 255, 0.1);
+  color: var(--primary);
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  margin-top: 20px;
+}
+
+.pagination button {
+  padding: 6px 12px;
+  border: 1px solid var(--outline-variant);
+  border-radius: 6px;
+  background: var(--surface-container);
+  color: var(--on-surface);
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: background 0.15s;
+}
+
+.pagination button:hover:not(:disabled) {
+  background: var(--surface-container-high);
+}
+
+.pagination button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.pagination .page-active {
+  background: var(--primary);
+  color: var(--on-primary);
+  border-color: var(--primary);
+}
+
 .empty-state a,
 .list-header a.button,
 a.button {
