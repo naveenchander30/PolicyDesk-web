@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter, useSearchParams } from "next/navigation";
-import { FormEvent, useState, useCallback } from "react";
+import { FormEvent, useState } from "react";
 import { createBrowserSupabaseClient } from "@/lib/supabase/browser";
 import { getAuthErrors } from "@/lib/auth/auth";
 
