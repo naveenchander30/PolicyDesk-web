@@ -6,7 +6,10 @@ export default async function PoliciesPage() {
 
   return (
     <div>
-      <h1>All Policies</h1>
+      <div className="page-header">
+        <h1>Policies</h1>
+        <p>Manage and monitor active client policy records.</p>
+      </div>
       <PolicyList policies={policies} />
     </div>
   );

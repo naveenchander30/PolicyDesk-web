@@ -10,15 +10,14 @@ vi.mock("next/navigation", () => ({
 vi.mock("@/lib/supabase/browser", () => ({
   createBrowserSupabaseClient: () => ({
     auth: {
-      signInWithPassword: vi.fn().mockResolvedValue({ data: { session: {} }, error: null }),
-      signUp: vi.fn().mockResolvedValue({ data: { user: {} }, error: null })
+      signInWithPassword: vi.fn().mockResolvedValue({ data: { session: {} }, error: null })
     }
   })
 }));
 
 describe("AuthForm", () => {
   it("renders login controls", () => {
-    render(<AuthForm mode="login" />);
+    render(<AuthForm />);
 
     expect(screen.getByRole("heading", { name: "Log in" })).toBeInTheDocument();
     expect(screen.getByLabelText("Email")).toBeInTheDocument();
@@ -26,22 +25,9 @@ describe("AuthForm", () => {
     expect(screen.getByRole("button", { name: "Log in" })).toBeInTheDocument();
   });
 
-  it("renders signup controls", () => {
-    render(<AuthForm mode="signup" />);
-
-    expect(
-      screen.getByRole("heading", { name: "Create account" })
-    ).toBeInTheDocument();
-    expect(screen.getByLabelText("Email")).toBeInTheDocument();
-    expect(screen.getByLabelText("Password")).toBeInTheDocument();
-    expect(
-      screen.getByRole("button", { name: "Create account" })
-    ).toBeInTheDocument();
-  });
-
   it("shows validation messages when submitted empty", async () => {
     const user = userEvent.setup();
-    render(<AuthForm mode="login" />);
+    render(<AuthForm />);
 
     await user.click(screen.getByRole("button", { name: "Log in" }));
 

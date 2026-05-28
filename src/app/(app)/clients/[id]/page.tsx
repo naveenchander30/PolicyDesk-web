@@ -1,8 +1,10 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { fetchClient } from "@/features/clients/client.queries.server";
+import { createServerSupabaseClient } from "@/lib/supabase/server";
+import { fetchClient, fetchClientPaymentSummary } from "@/features/clients/client.queries.server";
 import { fetchPoliciesByClient } from "@/features/policies/policy.queries.server";
 import { PolicyList } from "@/features/policies/policy-list";
+import { ClientPaymentSummary } from "@/features/clients/client-payment-summary";
 
 export default async function ClientDetailPage({
   params
@@ -10,6 +12,8 @@ export default async function ClientDetailPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
+
+  const supabase = await createServerSupabaseClient();
 
   let client;
   try {
@@ -19,6 +23,7 @@ export default async function ClientDetailPage({
   }
 
   const policies = await fetchPoliciesByClient(id);
+  const paymentSummary = await fetchClientPaymentSummary(supabase, id);
 
   return (
     <div>
@@ -47,6 +52,8 @@ export default async function ClientDetailPage({
 
       <h2>Policies</h2>
       <PolicyList policies={policies} clientId={id} />
+
+      <ClientPaymentSummary summary={paymentSummary} />
     </div>
   );
 }

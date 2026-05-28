@@ -1,16 +1,9 @@
 "use client";
 
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
 import { createBrowserSupabaseClient } from "@/lib/supabase/browser";
 import { getAuthErrors } from "@/lib/auth/auth";
-
-type AuthMode = "login" | "signup";
-
-type AuthFormProps = {
-  mode: AuthMode;
-};
 
 type ValidationErrors = {
   email?: string;
@@ -18,27 +11,7 @@ type ValidationErrors = {
   submit?: string;
 };
 
-const copy = {
-  login: {
-    title: "Log in",
-    description: "Access your client book and payment dashboard.",
-    submit: "Log in",
-    alternate: "Need an account?",
-    alternateHref: "/signup",
-    alternateLabel: "Create one"
-  },
-  signup: {
-    title: "Create account",
-    description: "Set up access for your PolicyDesk workspace.",
-    submit: "Create account",
-    alternate: "Already have an account?",
-    alternateHref: "/login",
-    alternateLabel: "Log in"
-  }
-} satisfies Record<AuthMode, Record<string, string>>;
-
-export function AuthForm({ mode }: AuthFormProps) {
-  const content = copy[mode];
+export function AuthForm() {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -60,26 +33,14 @@ export function AuthForm({ mode }: AuthFormProps) {
     try {
       const supabase = createBrowserSupabaseClient();
 
-      if (mode === "login") {
-        const { error } = await supabase.auth.signInWithPassword({
-          email: email.trim(),
-          password: password.trim()
-        });
+      const { error } = await supabase.auth.signInWithPassword({
+        email: email.trim(),
+        password: password.trim()
+      });
 
-        if (error) {
-          setErrors({ submit: error.message });
-          return;
-        }
-      } else {
-        const { error } = await supabase.auth.signUp({
-          email: email.trim(),
-          password: password.trim()
-        });
-
-        if (error) {
-          setErrors({ submit: error.message });
-          return;
-        }
+      if (error) {
+        setErrors({ submit: error.message });
+        return;
       }
 
       router.push("/dashboard");
@@ -94,8 +55,8 @@ export function AuthForm({ mode }: AuthFormProps) {
     <form className="auth-form" onSubmit={handleSubmit} noValidate>
       <div>
         <p className="eyebrow">PolicyDesk</p>
-        <h1>{content.title}</h1>
-        <p>{content.description}</p>
+        <h1>Log in</h1>
+        <p>Access your client book and payment dashboard.</p>
       </div>
 
       {errors.submit && <p className="field-error">{errors.submit}</p>}
@@ -117,7 +78,7 @@ export function AuthForm({ mode }: AuthFormProps) {
       <label>
         <span>Password</span>
         <input
-          autoComplete={mode === "login" ? "current-password" : "new-password"}
+          autoComplete="current-password"
           name="password"
           onChange={(event) => setPassword(event.target.value)}
           type="password"
@@ -130,13 +91,8 @@ export function AuthForm({ mode }: AuthFormProps) {
       ) : null}
 
       <button type="submit" disabled={isLoading}>
-        {isLoading ? "Loading..." : content.submit}
+        {isLoading ? "Loading..." : "Log in"}
       </button>
-
-      <p className="auth-switch">
-        {content.alternate}{" "}
-        <Link href={content.alternateHref}>{content.alternateLabel}</Link>
-      </p>
     </form>
   );
 }

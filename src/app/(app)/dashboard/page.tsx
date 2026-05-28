@@ -6,7 +6,10 @@ export default async function DashboardPage() {
 
   return (
     <div>
-      <h1>Dashboard</h1>
+      <div className="dashboard-header">
+        <h1>Dashboard</h1>
+        <p>Real-time agency metrics and payment actions.</p>
+      </div>
       <DashboardWidgets stats={stats} />
     </div>
   );

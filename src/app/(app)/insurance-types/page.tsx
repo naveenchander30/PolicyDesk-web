@@ -6,7 +6,10 @@ export default async function InsuranceTypesPage() {
 
   return (
     <div>
-      <h1>Insurance Types</h1>
+      <div className="page-header">
+        <h1>Insurance Types</h1>
+        <p>Configure and categorize insurance product offerings.</p>
+      </div>
       <InsuranceTypeList types={types} />
     </div>
   );

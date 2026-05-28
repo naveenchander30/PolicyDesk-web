@@ -11,7 +11,6 @@ export default function HomePage() {
         </p>
         <div className="public-actions">
           <Link href="/login">Log in</Link>
-          <Link href="/signup">Create account</Link>
         </div>
       </section>
     </main>

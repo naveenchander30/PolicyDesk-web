@@ -6,7 +6,10 @@ export default async function ClientsPage() {
 
   return (
     <div>
-      <h1>Clients</h1>
+      <div className="page-header">
+        <h1>Clients</h1>
+        <p>Manage your agency&apos;s client database and relationships.</p>
+      </div>
       <ClientList clients={clients} />
     </div>
   );
