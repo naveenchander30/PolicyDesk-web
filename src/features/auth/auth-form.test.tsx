@@ -4,7 +4,8 @@ import { describe, expect, it, vi } from "vitest";
 import { AuthForm } from "./auth-form";
 
 vi.mock("next/navigation", () => ({
-  useRouter: () => ({ push: vi.fn() })
+  useRouter: () => ({ push: vi.fn() }),
+  useSearchParams: () => null
 }));
 
 vi.mock("@/lib/supabase/browser", () => ({
@@ -16,13 +17,15 @@ vi.mock("@/lib/supabase/browser", () => ({
 }));
 
 describe("AuthForm", () => {
-  it("renders login controls", () => {
+  it("renders login controls and forgot password link", () => {
     render(<AuthForm />);
 
     expect(screen.getByRole("heading", { name: "Log in" })).toBeInTheDocument();
     expect(screen.getByLabelText("Email")).toBeInTheDocument();
     expect(screen.getByLabelText("Password")).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "Log in" })).toBeInTheDocument();
+    expect(screen.getByText("Forgot password?")).toBeInTheDocument();
+    expect(screen.getByText("Don't have an account? Contact your agency admin.")).toBeInTheDocument();
   });
 
   it("shows validation messages when submitted empty", async () => {
