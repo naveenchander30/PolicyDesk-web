@@ -13,6 +13,7 @@ const navLinks = [
   { href: "/dashboard", label: "Dashboard" },
   { href: "/clients", label: "Clients" },
   { href: "/policies", label: "Policies" },
+  { href: "/payments", label: "Payments" },
   { href: "/insurance-types", label: "Insurance Types" },
 ];
 
